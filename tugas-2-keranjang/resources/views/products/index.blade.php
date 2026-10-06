@@ -1,0 +1,6 @@
+<!doctype html>
+<html lang="id"><head><meta charset="utf-8"><title>Toko Alat Tulis</title>
+<style>body{font-family:Arial;background:#f3f4f6;margin:0;padding:2rem;color:#1f2937}main{max-width:60rem;margin:auto}.top{display:flex;justify-content:space-between}.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:1rem}.card{background:#fff;padding:1rem;border-radius:.6rem;box-shadow:0 2px 8px #0001}button{background:#2563eb;color:#fff;border:0;padding:.55rem;border-radius:.3rem;cursor:pointer}.muted{color:#6b7280}</style></head>
+<body><main><div class="top"><h1>Toko Alat Tulis</h1><a href="{{ route('cart.index') }}">Keranjang ({{ array_sum(session('cart', [])) }})</a></div>
+<h2>Daftar barang</h2>@if(session('status'))<p>{{ session('status') }}</p>@endif
+<div class="grid">@foreach($products as $product)<article class="card"><div style="font-size:3rem">📦</div><h3>{{ $product->name }}</h3><p>Rp {{ number_format($product->price, 0, ',', '.') }}</p><p class="muted">Stok: {{ $product->stock }}</p>@if($product->stock > 0)<form method="POST" action="{{ route('cart.add', $product) }}">@csrf<button>Masukkan ke keranjang</button></form>@else<p>Stok habis</p>@endif</article>@endforeach</div></main></body></html>
