@@ -32,11 +32,6 @@ class AuthController extends Controller
             ->onlyInput('username');
     }
 
-    public function dashboard(): View
-    {
-        return view('dashboard');
-    }
-
     public function logout(Request $request): RedirectResponse
     {
         Auth::logout();

@@ -39,6 +39,39 @@ class ShopController extends Controller
         return back();
     }
 
+    public function change(Request $request, Product $product, string $direction): RedirectResponse
+    {
+        abort_unless(in_array($direction, ['increase', 'decrease'], true), 404);
+        $cart = $request->session()->get('cart', []);
+        $quantity = (int) ($cart[$product->id] ?? 0);
+        $quantity += $direction === 'increase' ? 1 : -1;
+
+        if ($quantity < 1) {
+            unset($cart[$product->id]);
+        } else {
+            $cart[$product->id] = min($quantity, $product->stock);
+        }
+        $request->session()->put('cart', $cart);
+
+        return back();
+    }
+
+    public function remove(Request $request, Product $product): RedirectResponse
+    {
+        $cart = $request->session()->get('cart', []);
+        unset($cart[$product->id]);
+        $request->session()->put('cart', $cart);
+
+        return back();
+    }
+
+    public function clear(Request $request): RedirectResponse
+    {
+        $request->session()->forget('cart');
+
+        return back();
+    }
+
     public function checkout(Request $request): RedirectResponse
     {
         $data = $request->validate(['shipping_address' => ['required', 'string', 'max:1000']]);
