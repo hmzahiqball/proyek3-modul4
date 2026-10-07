@@ -1,0 +1,5 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 180" role="img" aria-label="Ilustrasi produk">
+  <rect width="320" height="180" rx="18" fill="#dbeafe"/>
+  <path d="M96 50h128v80H96z" fill="#2563eb"/>
+  <path d="M112 66h96v12h-96zm0 24h72v12h-72z" fill="#bfdbfe"/>
+</svg>

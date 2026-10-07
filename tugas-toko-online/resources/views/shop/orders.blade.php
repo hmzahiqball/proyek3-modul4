@@ -1,1 +1,25 @@
-<!doctype html><html lang="id"><head><meta charset="utf-8"><title>Riwayat Pesanan</title></head><body style="font-family:Arial;background:#f3f4f6;padding:2rem"><main style="max-width:55rem;margin:auto"><a href="{{ route('products.index') }}">← Produk</a><h1>Riwayat Pesanan</h1>@if(session('status'))<p>{{ session('status') }}</p>@endif@forelse($orders as $order)<section style="background:#fff;padding:1rem;margin:1rem 0"><h3>Pesanan #{{ $order->id }}</h3><p>{{ $order->created_at }} · Total Rp {{ number_format($order->total,0,',','.') }}</p><ul>@foreach($order->items as $item)<li>{{ $item->product->name }} × {{ $item->quantity }} (Rp {{ number_format($item->unit_price,0,',','.') }})</li>@endforeach</ul><p>Alamat: {{ $order->shipping_address }}</p></section>@empty<p>Belum ada pesanan.</p>@endforelse</main></body></html>
+<!doctype html>
+<html lang="id">
+<head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>Riwayat Pesanan</title></head>
+<body style="font-family:Arial;background:#f3f4f6;padding:2rem">
+<main style="max-width:55rem;margin:auto">
+    <a href="{{ route('products.index') }}">← Produk</a>
+    <h1>Riwayat Pesanan</h1>
+    @if(session('status'))<p>{{ session('status') }}</p>@endif
+    @forelse($orders as $order)
+        <section style="background:#fff;padding:1rem;margin:1rem 0">
+            <h3>Pesanan #{{ $order->id }}</h3>
+            <p>{{ $order->created_at }} · Total Rp {{ number_format($order->total, 0, ',', '.') }}</p>
+            <ul>
+                @foreach($order->items as $item)
+                    <li>{{ $item->product->name }} × {{ $item->quantity }} — Rp {{ number_format($item->unit_price, 0, ',', '.') }}</li>
+                @endforeach
+            </ul>
+            <p>Alamat: {{ $order->shipping_address }}</p>
+        </section>
+    @empty
+        <p>Belum ada pesanan.</p>
+    @endforelse
+</main>
+</body>
+</html>
