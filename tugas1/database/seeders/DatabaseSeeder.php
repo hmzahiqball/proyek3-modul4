@@ -16,15 +16,15 @@ class DatabaseSeeder extends Seeder
     public function run(): void
     {
         User::create([
-            'username' => 'budi',
-            'password' => 'rahasia123',
-            'nama_lengkap' => 'Budi Santoso',
+            'username' => 'putra',
+            'password' => 'putra123',
+            'nama_lengkap' => 'Putra Suyapratama',
         ]);
 
         User::create([
-            'username' => 'siti',
-            'password' => 'password123',
-            'nama_lengkap' => 'Siti Aminah',
+            'username' => 'muti',
+            'password' => 'pearly123',
+            'nama_lengkap' => 'Pearly Lovies',
         ]);
     }
 }
