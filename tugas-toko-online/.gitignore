@@ -16,6 +16,9 @@
 /public/build
 /public/hot
 /public/storage
+/database/*.sqlite
+/storage/framework/sessions/*
+/storage/framework/views/*
 /storage/*.key
 /storage/pail
 /vendor
