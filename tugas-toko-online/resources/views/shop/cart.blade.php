@@ -45,7 +45,7 @@
     window.csrfToken = document.querySelector('meta[name="csrf-token"]').content;
 
     async function submitCart() {
-        const response = await fetch(@json(route('cart.store')), {
+        const response = await fetch(@json(route('cart.show')), {
             method: 'POST',
             headers: {'Content-Type': 'application/json', 'Accept': 'text/html', 'X-CSRF-TOKEN': window.csrfToken},
             body: JSON.stringify({cart: window.cartState})
@@ -62,15 +62,14 @@
         button.addEventListener('click', async () => {
             const action = button.dataset.action;
             if (action === 'clear') {
-                window.cartState = [];
+                window.cartState = {};
             } else {
                 const productId = Number(button.dataset.productId);
-                const line = window.cartState.find((item) => item.product_id === productId);
-                if (!line) return;
-                if (action === 'increase') line.quantity += 1;
-                if (action === 'decrease') line.quantity -= 1;
-                if (action === 'remove' || line.quantity < 1) {
-                    window.cartState = window.cartState.filter((item) => item.product_id !== productId);
+                const quantity = window.cartState[productId] || 0;
+                if (action === 'increase') window.cartState[productId] = quantity + 1;
+                if (action === 'decrease') window.cartState[productId] = quantity - 1;
+                if (action === 'remove' || window.cartState[productId] < 1) {
+                    delete window.cartState[productId];
                 }
             }
             await submitCart();

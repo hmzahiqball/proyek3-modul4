@@ -12,7 +12,8 @@ Route::middleware('guest')->group(function (): void {
 });
 Route::middleware('auth')->group(function (): void {
     Route::get('/cart', [ShopController::class, 'cart'])->name('cart.index');
-    Route::post('/cart', [ShopController::class, 'storeCart'])->name('cart.store');
+    Route::post('/cart', [ShopController::class, 'showCart'])->name('cart.show');
+    Route::post('/cart/add', [ShopController::class, 'addToCart'])->name('cart.add');
     Route::post('/checkout', [ShopController::class, 'checkout'])->name('checkout');
     Route::get('/orders', [ShopController::class, 'orders'])->name('orders.index');
     Route::post('/logout', [AuthController::class, 'logout'])->name('logout');

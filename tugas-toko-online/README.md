@@ -31,8 +31,9 @@ melakukan checkout.
    ```
 
 `GET /cart` tidak menerima payload sehingga menampilkan keranjang kosong setelah
-refresh. Interaksi cart menggunakan `POST /cart` dengan payload JSON seperti
-`{"cart":[{"product_id":1,"quantity":2}]}`. State tersebut hanya berada di
+refresh. Setiap penambahan barang menggunakan `POST /cart/add` dengan payload JSON seperti
+`{"cart":{"1":2},"product_id":2}`. Response mengembalikan cart terbaru, daftar
+item, subtotal, dan total. State tersebut hanya berada di
 memori JavaScript halaman dan tidak disimpan pada session, cookie, atau database.
 
 Data login hasil seeder:

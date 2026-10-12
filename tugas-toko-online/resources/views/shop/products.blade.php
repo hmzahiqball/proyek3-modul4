@@ -60,47 +60,48 @@
 </main>
 @auth
 <script>
-    window.cartState = [];
+    window.cartState = {};
     window.csrfToken = document.querySelector('meta[name="csrf-token"]')?.content || @json(csrf_token());
 
     function cartCount() {
-        return window.cartState.reduce((sum, line) => sum + line.quantity, 0);
+        return Object.values(window.cartState).reduce((sum, quantity) => sum + quantity, 0);
     }
 
-    async function sendCart(url = @json(route('cart.store'))) {
-        const response = await fetch(url, {
+    async function addToCart(productId) {
+        const response = await fetch(@json(route('cart.add')), {
             method: 'POST',
-            headers: {'Content-Type': 'application/json', 'Accept': 'text/html', 'X-CSRF-TOKEN': window.csrfToken},
-            body: JSON.stringify({cart: window.cartState})
+            headers: {'Content-Type': 'application/json', 'Accept': 'application/json', 'X-CSRF-TOKEN': window.csrfToken},
+            body: JSON.stringify({cart: window.cartState, product_id: productId})
         });
         if (!response.ok) {
             throw new Error('Server menolak payload cart.');
         }
-        return response.text();
+        return response.json();
     }
 
     function updateCounter() {
         document.querySelector('#cart-count').textContent = cartCount();
-        document.querySelector('#cart-message').textContent = window.cartState.length
+        document.querySelector('#cart-message').textContent = Object.keys(window.cartState).length
             ? `${cartCount()} item siap ditinjau melalui tombol Keranjang.`
             : 'Belum ada item.';
     }
 
     document.querySelectorAll('.add-to-cart').forEach((button) => {
-        button.addEventListener('click', () => {
+        button.addEventListener('click', async () => {
             const productId = Number(button.dataset.productId);
-            const line = window.cartState.find((item) => item.product_id === productId);
-            if (line) {
-                line.quantity = Math.min(line.quantity + 1, Number(button.dataset.stock));
-            } else {
-                window.cartState.push({product_id: productId, quantity: 1});
-            }
+            const result = await addToCart(productId);
+            window.cartState = result.cart;
             updateCounter();
+            document.querySelector('#cart-message').textContent = `${cartCount()} item, total Rp ${result.total.toLocaleString('id-ID')}.`;
         });
     });
 
     document.querySelector('#view-cart').addEventListener('click', async () => {
-        const html = await sendCart();
+        const html = await fetch(@json(route('cart.show')), {
+            method: 'POST',
+            headers: {'Content-Type': 'application/json', 'Accept': 'text/html', 'X-CSRF-TOKEN': window.csrfToken},
+            body: JSON.stringify({cart: window.cartState})
+        }).then((response) => response.text());
         history.pushState({}, '', @json(route('cart.index')));
         document.open();
         document.write(html);
