@@ -7,7 +7,7 @@ melakukan checkout.
 ### Fitur
 
 - Login dengan password ter-hash dan middleware `auth`/`guest`.
-- Daftar minimal 10 produk dengan gambar, harga, stok, dan deskripsi.
+- Daftar tiga produk dengan gambar, harga, stok, dan deskripsi.
 - Keranjang stateless: payload cart dikirim dari browser, sedangkan harga, stok,
   subtotal, dan total selalu dihitung ulang oleh server.
 - Checkout dengan validasi stok, transaksi database, dan pengarsipan harga item.

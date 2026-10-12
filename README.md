@@ -92,7 +92,8 @@ Migration yang tersedia mencakup:
 - `orders` dan `order_items`
 - penambahan kolom `products.description` untuk database lama
 
-Seeder membuat satu akun pengguna dan sepuluh produk alat tulis. Seeder dapat
+Seeder membuat satu akun pengguna dan tiga produk alat tulis (Buku Tulis,
+Pulpen, dan Penggaris). Seeder dapat
 dijalankan berulang kali karena menggunakan `updateOrCreate`.
 
 Kredensial seeder:

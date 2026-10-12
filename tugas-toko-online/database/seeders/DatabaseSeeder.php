@@ -15,13 +15,19 @@ class DatabaseSeeder extends Seeder
             ['password' => 'putra123', 'nama_lengkap' => 'Putra Suyapratama'],
         );
 
-        foreach (['Buku Tulis', 'Pulpen Gel', 'Pensil 2B', 'Penghapus', 'Penggaris', 'Spidol', 'Stabilo', 'Kertas A4', 'Map Plastik', 'Notebook'] as $index => $name) {
+        $products = [
+            ['name' => 'Buku Tulis', 'price' => 5000],
+            ['name' => 'Pulpen', 'price' => 3000],
+            ['name' => 'Penggaris', 'price' => 4000],
+        ];
+
+        foreach ($products as $productData) {
             Product::updateOrCreate(
-                ['name' => $name],
+                ['name' => $productData['name']],
                 [
-                    'description' => "Produk alat tulis {$name}.",
-                    'price' => 2500 + ($index * 1000),
-                    'stock' => 5 + $index,
+                    'description' => "Produk alat tulis {$productData['name']}.",
+                    'price' => $productData['price'],
+                    'stock' => 10,
                     'image' => 'product.svg',
                 ],
             );
