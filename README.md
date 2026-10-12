@@ -10,7 +10,7 @@ belanja, migration, seeder, dan penyimpanan data pada MySQL.
 | --- | --- | --- |
 | [`tugas1`](./tugas1) | Tugas 1 - Login Laravel | Login, logout, middleware `auth`/`guest`, dan dashboard |
 | [`tugas-2-keranjang`](./tugas-2-keranjang) | Tugas 2 - Keranjang Belanja | Session cart, tambah produk, ubah jumlah, hapus item, dan kosongkan keranjang |
-| [`tugas-toko-online`](./tugas-toko-online) | Tugas toko online | Login, katalog produk, cart, checkout, order, migration, dan seeder MySQL |
+| [`tugas-toko-online`](./tugas-toko-online) | Tugas toko online | Login, katalog produk, stateless cart, checkout, order, migration, dan seeder MySQL |
 
 ## Persyaratan
 

@@ -8,7 +8,8 @@ melakukan checkout.
 
 - Login dengan password ter-hash dan middleware `auth`/`guest`.
 - Daftar minimal 10 produk dengan gambar, harga, stok, dan deskripsi.
-- Keranjang berbasis session: tambah, ubah jumlah, hapus item, dan kosongkan.
+- Keranjang stateless: payload cart dikirim dari browser, sedangkan harga, stok,
+  subtotal, dan total selalu dihitung ulang oleh server.
 - Checkout dengan validasi stok, transaksi database, dan pengarsipan harga item.
 - Riwayat pesanan milik pengguna.
 
@@ -28,6 +29,11 @@ melakukan checkout.
    ```bash
    php artisan serve
    ```
+
+`GET /cart` tidak menerima payload sehingga menampilkan keranjang kosong setelah
+refresh. Interaksi cart menggunakan `POST /cart` dengan payload JSON seperti
+`{"cart":[{"product_id":1,"quantity":2}]}`. State tersebut hanya berada di
+memori JavaScript halaman dan tidak disimpan pada session, cookie, atau database.
 
 Data login hasil seeder:
 

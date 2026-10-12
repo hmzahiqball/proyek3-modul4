@@ -12,10 +12,7 @@ Route::middleware('guest')->group(function (): void {
 });
 Route::middleware('auth')->group(function (): void {
     Route::get('/cart', [ShopController::class, 'cart'])->name('cart.index');
-    Route::post('/cart/products/{product}', [ShopController::class, 'add'])->name('cart.add');
-    Route::post('/cart/products/{product}/{direction}', [ShopController::class, 'change'])->name('cart.change');
-    Route::delete('/cart/products/{product}', [ShopController::class, 'remove'])->name('cart.remove');
-    Route::delete('/cart', [ShopController::class, 'clear'])->name('cart.clear');
+    Route::post('/cart', [ShopController::class, 'storeCart'])->name('cart.store');
     Route::post('/checkout', [ShopController::class, 'checkout'])->name('checkout');
     Route::get('/orders', [ShopController::class, 'orders'])->name('orders.index');
     Route::post('/logout', [AuthController::class, 'logout'])->name('logout');

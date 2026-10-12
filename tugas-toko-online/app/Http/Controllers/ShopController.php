@@ -7,6 +7,7 @@ use App\Models\Product;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Validator;
 use Illuminate\View\View;
 
 class ShopController extends Controller
@@ -16,77 +17,33 @@ class ShopController extends Controller
         return view('shop.products', ['products' => Product::query()->orderBy('id')->get()]);
     }
 
-    public function cart(Request $request): View
+    public function cart(): View
     {
-        $cart = $request->session()->get('cart', []);
-        $products = Product::whereIn('id', array_keys($cart))->get()->keyBy('id');
-        $items = collect($cart)->map(function (int $quantity, string $id) use ($products) {
-            $product = $products->get((int) $id);
-
-            return $product ? ['product' => $product, 'quantity' => $quantity, 'subtotal' => $product->price * $quantity] : null;
-        })->filter();
-
-        return view('shop.cart', ['items' => $items, 'total' => $items->sum('subtotal')]);
+        return view('shop.cart', $this->summarizeCart([]));
     }
 
-    public function add(Request $request, Product $product): RedirectResponse
+    public function storeCart(Request $request): View
     {
-        abort_if($product->stock < 1, 422);
-        $cart = $request->session()->get('cart', []);
-        $cart[$product->id] = min(($cart[$product->id] ?? 0) + 1, $product->stock);
-        $request->session()->put('cart', $cart);
+        $cart = $this->validatedCart($request);
 
-        return back();
-    }
-
-    public function change(Request $request, Product $product, string $direction): RedirectResponse
-    {
-        abort_unless(in_array($direction, ['increase', 'decrease'], true), 404);
-        $cart = $request->session()->get('cart', []);
-        $quantity = (int) ($cart[$product->id] ?? 0);
-        $quantity += $direction === 'increase' ? 1 : -1;
-
-        if ($quantity < 1) {
-            unset($cart[$product->id]);
-        } else {
-            $cart[$product->id] = min($quantity, $product->stock);
-        }
-        $request->session()->put('cart', $cart);
-
-        return back();
-    }
-
-    public function remove(Request $request, Product $product): RedirectResponse
-    {
-        $cart = $request->session()->get('cart', []);
-        unset($cart[$product->id]);
-        $request->session()->put('cart', $cart);
-
-        return back();
-    }
-
-    public function clear(Request $request): RedirectResponse
-    {
-        $request->session()->forget('cart');
-
-        return back();
+        return view('shop.cart', $this->summarizeCart($cart));
     }
 
     public function checkout(Request $request): RedirectResponse
     {
         $data = $request->validate(['shipping_address' => ['required', 'string', 'max:1000']]);
-        $cart = $request->session()->get('cart', []);
+        $cart = $this->validatedCart($request);
         abort_if($cart === [], 422, 'Keranjang kosong.');
 
         $order = DB::transaction(function () use ($cart, $data, $request): Order {
-            $products = Product::whereIn('id', array_keys($cart))->lockForUpdate()->get()->keyBy('id');
+            $products = Product::whereIn('id', array_column($cart, 'product_id'))->lockForUpdate()->get()->keyBy('id');
             $total = 0;
             $lines = [];
-            foreach ($cart as $id => $quantity) {
-                $product = $products->get((int) $id);
-                abort_if(! $product || $quantity < 1 || $quantity > $product->stock, 422, 'Stok tidak mencukupi.');
-                $total += $product->price * $quantity;
-                $lines[] = ['product' => $product, 'quantity' => $quantity];
+            foreach ($cart as $line) {
+                $product = $products->get($line['product_id']);
+                abort_if(! $product || $line['quantity'] > $product->stock, 422, 'Stok tidak mencukupi.');
+                $total += $product->price * $line['quantity'];
+                $lines[] = ['product' => $product, 'quantity' => $line['quantity']];
             }
             $order = Order::create(['user_id' => $request->user()->id, 'total' => $total, 'shipping_address' => $data['shipping_address']]);
             foreach ($lines as $line) {
@@ -96,7 +53,6 @@ class ShopController extends Controller
 
             return $order;
         });
-        $request->session()->forget('cart');
 
         return redirect()->route('orders.index')->with('status', "Pesanan #{$order->id} berhasil dibuat.");
     }
@@ -104,5 +60,55 @@ class ShopController extends Controller
     public function orders(Request $request): View
     {
         return view('shop.orders', ['orders' => Order::with('items.product')->where('user_id', $request->user()->id)->latest()->get()]);
+    }
+
+    /**
+     * @return array{items: \Illuminate\Support\Collection, total: int, cart: array<int, array{product_id: int, quantity: int}>}
+     */
+    private function summarizeCart(array $cart): array
+    {
+        $products = Product::query()
+            ->whereIn('id', array_column($cart, 'product_id'))
+            ->get()
+            ->keyBy('id');
+
+        $items = collect($cart)->map(function (array $line) use ($products): array {
+            $product = $products->get($line['product_id']);
+            abort_if(! $product, 422, 'Produk tidak ditemukan.');
+            abort_if($line['quantity'] > $product->stock, 422, "Stok {$product->name} tidak mencukupi.");
+
+            return [
+                'product' => $product,
+                'quantity' => $line['quantity'],
+                'subtotal' => $product->price * $line['quantity'],
+            ];
+        });
+
+        return ['items' => $items, 'total' => $items->sum('subtotal'), 'cart' => $cart];
+    }
+
+    /**
+     * @return array<int, array{product_id: int, quantity: int}>
+     */
+    private function validatedCart(Request $request): array
+    {
+        $payload = $request->input('cart');
+        if (is_string($payload)) {
+            $payload = json_decode($payload, true);
+        }
+
+        $validated = Validator::make(['cart' => $payload], [
+            'cart' => ['required', 'array'],
+            'cart.*.product_id' => ['required', 'integer', 'distinct', 'exists:products,id'],
+            'cart.*.quantity' => ['required', 'integer', 'min:1'],
+        ])->validate();
+
+        return array_map(
+            fn (array $line): array => [
+                'product_id' => (int) $line['product_id'],
+                'quantity' => (int) $line['quantity'],
+            ],
+            $validated['cart'],
+        );
     }
 }
