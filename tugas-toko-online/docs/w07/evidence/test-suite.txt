@@ -1,0 +1,46 @@
+
+   PASS  Tests\Unit\ExampleTest
+  ✓ that true is true
+
+   PASS  Tests\Feature\AuthenticationTest
+  ✓ login page is available to guests                                                                            0.96s
+  ✓ authenticated user is redirected from login to dashboard                                                     0.10s
+  ✓ invalid credentials return generic error                                                                     0.27s
+  ✓ valid credentials regenerate session and open dashboard                                                      0.08s
+  ✓ dashboard requires authentication                                                                            0.05s
+  ✓ logout invalidates session and redirects to login                                                            0.04s
+
+   PASS  Tests\Feature\ExampleTest
+  ✓ the application returns a successful response                                                                0.05s
+
+   PASS  Tests\Feature\RoleCartTest
+  ✓ ac06 staff and admin are forbidden before cart operation                                                     0.10s
+  ✓ customer role change revokes cart on next request in same session                                            0.11s
+  ✓ full access matrix and stock visibility                                                                      0.16s
+
+   PASS  Tests\Feature\RoleManagementTest
+  ✓ ac01 admin changes customer to staff and logs once                                                           0.07s
+  ✓ ac02 customer is forbidden and database and logs unchanged                                                   0.21s
+  ✓ ac03 admin cannot change self or another admin                                                               0.06s
+  ✓ ac04 invalid roles are rejected without changes                                                              0.11s
+  ✓ ac05 same role does not save or log                                                                          0.14s
+  ✓ ability matrix and guest role endpoint                                                                       0.05s
+  ✓ observer ignores non role update and bulk update and supports null actor                                     0.04s
+  ✓ admin form only offers customer and staff and requires csrf                                                  0.06s
+
+   PASS  Tests\Feature\RoleSchemaTest
+  ✓ database defaults new and legacy style users to customer                                                     0.05s
+  ✓ demo seeder is local and repeatable without overwriting existing users                                       0.08s
+  ✓ demo seeder refuses role collision without overwriting account                                               0.05s
+  ✓ demo seeder is disabled in production                                                                        0.04s
+
+   PASS  Tests\Feature\ShopTest
+  ✓ guests can view products but must login to buy                                                               0.05s
+  ✓ cart payload is calculated from database and get cart is empty                                               0.06s
+  ✓ add endpoint returns same result for the same payload                                                        0.06s
+  ✓ checkout creates order details and reduces stock from payload                                                0.08s
+  ✓ checkout rejects quantity above stock                                                                        9.37s
+  ✓ client cannot submit a forged price                                                                          0.05s
+
+  Tests:    29 passed (170 assertions)
+  Duration: 13.61s

@@ -1,0 +1,43 @@
+{
+  "connection": "mysql",
+  "users": [
+    {
+      "id": 1,
+      "username": "putra",
+      "role": "customer"
+    },
+    {
+      "id": 2,
+      "username": "w07_admin",
+      "role": "admin"
+    },
+    {
+      "id": 3,
+      "username": "w07_customer",
+      "role": "customer"
+    },
+    {
+      "id": 4,
+      "username": "w07_staff",
+      "role": "staff"
+    }
+  ],
+  "role_column": [
+    {
+      "name": "role",
+      "type_name": "varchar",
+      "type": "varchar(20)",
+      "collation": "utf8mb4_unicode_ci",
+      "nullable": false,
+      "default": "'customer'",
+      "auto_increment": false,
+      "comment": null,
+      "generation": null
+    }
+  ],
+  "role_index": true,
+  "products_count": 3,
+  "orders_count": 0,
+  "pending_migrations": [],
+  "executed_at": "2026-10-22T15:59:48.983954+07:00"
+}

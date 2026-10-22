@@ -1,0 +1,1382 @@
+{
+  "executed_at": "2026-10-22T16:05:15.426993+07:00",
+  "environment": "existing Laravel application; real loopback HTTP; isolated SQLite dummy; database sessions; CSRF enabled",
+  "records": [
+    {
+      "id": "LOGIN-w07_customer",
+      "prediction_before_execution": "302 /dashboard; session login tersimpan",
+      "http": {
+        "method": "POST",
+        "url": "http://127.0.0.1:64454/login",
+        "status": 302,
+        "request": {
+          "username": "w07_customer",
+          "password": "[REDACTED]"
+        },
+        "response": "HTML response (body omitted to protect CSRF/session data)",
+        "location": "http://127.0.0.1:64454/dashboard"
+      },
+      "result": "LOLOS PENGUJIAN"
+    },
+    {
+      "id": "LOGIN-w07_admin",
+      "prediction_before_execution": "302 /dashboard; session login tersimpan",
+      "http": {
+        "method": "POST",
+        "url": "http://127.0.0.1:64454/login",
+        "status": 302,
+        "request": {
+          "username": "w07_admin",
+          "password": "[REDACTED]"
+        },
+        "response": "HTML response (body omitted to protect CSRF/session data)",
+        "location": "http://127.0.0.1:64454/dashboard"
+      },
+      "result": "LOLOS PENGUJIAN"
+    },
+    {
+      "id": "LOGIN-w07_staff",
+      "prediction_before_execution": "302 /dashboard; session login tersimpan",
+      "http": {
+        "method": "POST",
+        "url": "http://127.0.0.1:64454/login",
+        "status": 302,
+        "request": {
+          "username": "w07_staff",
+          "password": "[REDACTED]"
+        },
+        "response": "HTML response (body omitted to protect CSRF/session data)",
+        "location": "http://127.0.0.1:64454/dashboard"
+      },
+      "result": "LOLOS PENGUJIAN"
+    },
+    {
+      "id": "GUEST",
+      "prediction_before_execution": "302 ke login; DB/log tetap",
+      "http": {
+        "method": "POST",
+        "url": "http://127.0.0.1:64454/cart/add",
+        "status": 302,
+        "request": {},
+        "response": "HTML response (body omitted to protect CSRF/session data)",
+        "location": "http://127.0.0.1:64454/login"
+      },
+      "database_before": {
+        "users": [
+          {
+            "id": 1,
+            "username": "w07_admin",
+            "role": "admin",
+            "updated_at": "2026-10-22 09:05:06"
+          },
+          {
+            "id": 2,
+            "username": "w07_customer",
+            "role": "customer",
+            "updated_at": "2026-10-22 09:05:06"
+          },
+          {
+            "id": 3,
+            "username": "w07_staff",
+            "role": "staff",
+            "updated_at": "2026-10-22 09:05:07"
+          }
+        ],
+        "products": [
+          {
+            "id": 1,
+            "price": 5000,
+            "stock": 10
+          }
+        ],
+        "orders": 0
+      },
+      "database_after": {
+        "users": [
+          {
+            "id": 1,
+            "username": "w07_admin",
+            "role": "admin",
+            "updated_at": "2026-10-22 09:05:06"
+          },
+          {
+            "id": 2,
+            "username": "w07_customer",
+            "role": "customer",
+            "updated_at": "2026-10-22 09:05:06"
+          },
+          {
+            "id": 3,
+            "username": "w07_staff",
+            "role": "staff",
+            "updated_at": "2026-10-22 09:05:07"
+          }
+        ],
+        "products": [
+          {
+            "id": 1,
+            "price": 5000,
+            "stock": 10
+          }
+        ],
+        "orders": 0
+      },
+      "observer_count_before": 0,
+      "observer_count_after": 0,
+      "observer_delta": 0,
+      "observer_lines": [],
+      "result": "LOLOS PENGUJIAN"
+    },
+    {
+      "id": "CSRF",
+      "prediction_before_execution": "419 tanpa token; DB/log tetap",
+      "http": {
+        "method": "PATCH",
+        "url": "http://127.0.0.1:64454/admin/users/2/role",
+        "status": 419,
+        "request": {
+          "role": "staff"
+        },
+        "response": {
+          "message": "CSRF token mismatch."
+        },
+        "location": null
+      },
+      "database_before": {
+        "users": [
+          {
+            "id": 1,
+            "username": "w07_admin",
+            "role": "admin",
+            "updated_at": "2026-10-22 09:05:06"
+          },
+          {
+            "id": 2,
+            "username": "w07_customer",
+            "role": "customer",
+            "updated_at": "2026-10-22 09:05:06"
+          },
+          {
+            "id": 3,
+            "username": "w07_staff",
+            "role": "staff",
+            "updated_at": "2026-10-22 09:05:07"
+          }
+        ],
+        "products": [
+          {
+            "id": 1,
+            "price": 5000,
+            "stock": 10
+          }
+        ],
+        "orders": 0
+      },
+      "database_after": {
+        "users": [
+          {
+            "id": 1,
+            "username": "w07_admin",
+            "role": "admin",
+            "updated_at": "2026-10-22 09:05:06"
+          },
+          {
+            "id": 2,
+            "username": "w07_customer",
+            "role": "customer",
+            "updated_at": "2026-10-22 09:05:06"
+          },
+          {
+            "id": 3,
+            "username": "w07_staff",
+            "role": "staff",
+            "updated_at": "2026-10-22 09:05:07"
+          }
+        ],
+        "products": [
+          {
+            "id": 1,
+            "price": 5000,
+            "stock": 10
+          }
+        ],
+        "orders": 0
+      },
+      "observer_count_before": 0,
+      "observer_count_after": 0,
+      "observer_delta": 0,
+      "observer_lines": [],
+      "result": "LOLOS PENGUJIAN"
+    },
+    {
+      "id": "CART-W06",
+      "prediction_before_execution": "200 total 10000 dari payload cart; DB/log tetap",
+      "http": {
+        "method": "POST",
+        "url": "http://127.0.0.1:64454/cart/add",
+        "status": 200,
+        "request": {
+          "cart": {
+            "1": 1
+          },
+          "product_id": 1
+        },
+        "response": {
+          "cart": {
+            "1": 2
+          },
+          "items": [
+            {
+              "product_id": 1,
+              "product": "HTTP Buku",
+              "quantity": 2,
+              "subtotal": 10000
+            }
+          ],
+          "total": 10000
+        },
+        "location": null
+      },
+      "database_before": {
+        "users": [
+          {
+            "id": 1,
+            "username": "w07_admin",
+            "role": "admin",
+            "updated_at": "2026-10-22 09:05:06"
+          },
+          {
+            "id": 2,
+            "username": "w07_customer",
+            "role": "customer",
+            "updated_at": "2026-10-22 09:05:06"
+          },
+          {
+            "id": 3,
+            "username": "w07_staff",
+            "role": "staff",
+            "updated_at": "2026-10-22 09:05:07"
+          }
+        ],
+        "products": [
+          {
+            "id": 1,
+            "price": 5000,
+            "stock": 10
+          }
+        ],
+        "orders": 0
+      },
+      "database_after": {
+        "users": [
+          {
+            "id": 1,
+            "username": "w07_admin",
+            "role": "admin",
+            "updated_at": "2026-10-22 09:05:06"
+          },
+          {
+            "id": 2,
+            "username": "w07_customer",
+            "role": "customer",
+            "updated_at": "2026-10-22 09:05:06"
+          },
+          {
+            "id": 3,
+            "username": "w07_staff",
+            "role": "staff",
+            "updated_at": "2026-10-22 09:05:07"
+          }
+        ],
+        "products": [
+          {
+            "id": 1,
+            "price": 5000,
+            "stock": 10
+          }
+        ],
+        "orders": 0
+      },
+      "observer_count_before": 0,
+      "observer_count_after": 0,
+      "observer_delta": 0,
+      "observer_lines": [],
+      "result": "LOLOS PENGUJIAN"
+    },
+    {
+      "id": "AC-01",
+      "prediction_before_execution": "302; customer -> staff; satu log",
+      "http": {
+        "method": "PATCH",
+        "url": "http://127.0.0.1:64454/admin/users/2/role",
+        "status": 302,
+        "request": {
+          "role": "staff"
+        },
+        "response": "HTML response (body omitted to protect CSRF/session data)",
+        "location": "http://127.0.0.1:64454"
+      },
+      "database_before": {
+        "users": [
+          {
+            "id": 1,
+            "username": "w07_admin",
+            "role": "admin",
+            "updated_at": "2026-10-22 09:05:06"
+          },
+          {
+            "id": 2,
+            "username": "w07_customer",
+            "role": "customer",
+            "updated_at": "2026-10-22 09:05:06"
+          },
+          {
+            "id": 3,
+            "username": "w07_staff",
+            "role": "staff",
+            "updated_at": "2026-10-22 09:05:07"
+          }
+        ],
+        "products": [
+          {
+            "id": 1,
+            "price": 5000,
+            "stock": 10
+          }
+        ],
+        "orders": 0
+      },
+      "database_after": {
+        "users": [
+          {
+            "id": 1,
+            "username": "w07_admin",
+            "role": "admin",
+            "updated_at": "2026-10-22 09:05:06"
+          },
+          {
+            "id": 2,
+            "username": "w07_customer",
+            "role": "staff",
+            "updated_at": "2026-10-22 09:05:11"
+          },
+          {
+            "id": 3,
+            "username": "w07_staff",
+            "role": "staff",
+            "updated_at": "2026-10-22 09:05:07"
+          }
+        ],
+        "products": [
+          {
+            "id": 1,
+            "price": 5000,
+            "stock": 10
+          }
+        ],
+        "orders": 0
+      },
+      "observer_count_before": 0,
+      "observer_count_after": 1,
+      "observer_delta": 1,
+      "observer_lines": [
+        "[2026-10-22 09:05:11] local.INFO: user.role.changed {\"target_user_id\":2,\"old_role\":\"customer\",\"new_role\":\"staff\",\"actor_id\":1}"
+      ],
+      "result": "LOLOS PENGUJIAN"
+    },
+    {
+      "id": "SAME-SESSION-REVOKED",
+      "prediction_before_execution": "403 pada sesi customer yang sudah login setelah berubah staff",
+      "http": {
+        "method": "POST",
+        "url": "http://127.0.0.1:64454/cart/add",
+        "status": 403,
+        "request": {
+          "cart": {
+            "1": 1
+          },
+          "product_id": 1
+        },
+        "response": {
+          "message": "This action is unauthorized."
+        },
+        "location": null
+      },
+      "database_before": {
+        "users": [
+          {
+            "id": 1,
+            "username": "w07_admin",
+            "role": "admin",
+            "updated_at": "2026-10-22 09:05:06"
+          },
+          {
+            "id": 2,
+            "username": "w07_customer",
+            "role": "staff",
+            "updated_at": "2026-10-22 09:05:11"
+          },
+          {
+            "id": 3,
+            "username": "w07_staff",
+            "role": "staff",
+            "updated_at": "2026-10-22 09:05:07"
+          }
+        ],
+        "products": [
+          {
+            "id": 1,
+            "price": 5000,
+            "stock": 10
+          }
+        ],
+        "orders": 0
+      },
+      "database_after": {
+        "users": [
+          {
+            "id": 1,
+            "username": "w07_admin",
+            "role": "admin",
+            "updated_at": "2026-10-22 09:05:06"
+          },
+          {
+            "id": 2,
+            "username": "w07_customer",
+            "role": "staff",
+            "updated_at": "2026-10-22 09:05:11"
+          },
+          {
+            "id": 3,
+            "username": "w07_staff",
+            "role": "staff",
+            "updated_at": "2026-10-22 09:05:07"
+          }
+        ],
+        "products": [
+          {
+            "id": 1,
+            "price": 5000,
+            "stock": 10
+          }
+        ],
+        "orders": 0
+      },
+      "observer_count_before": 1,
+      "observer_count_after": 1,
+      "observer_delta": 0,
+      "observer_lines": [],
+      "result": "LOLOS PENGUJIAN"
+    },
+    {
+      "id": "AC-03",
+      "prediction_before_execution": "422; admin sendiri ditolak service; DB/log tetap",
+      "http": {
+        "method": "PATCH",
+        "url": "http://127.0.0.1:64454/admin/users/1/role",
+        "status": 422,
+        "request": {
+          "role": "customer"
+        },
+        "response": {
+          "message": "Akun admin tidak dapat diubah di fitur ini.",
+          "errors": {
+            "role": [
+              "Akun admin tidak dapat diubah di fitur ini."
+            ]
+          }
+        },
+        "location": null
+      },
+      "database_before": {
+        "users": [
+          {
+            "id": 1,
+            "username": "w07_admin",
+            "role": "admin",
+            "updated_at": "2026-10-22 09:05:06"
+          },
+          {
+            "id": 2,
+            "username": "w07_customer",
+            "role": "staff",
+            "updated_at": "2026-10-22 09:05:11"
+          },
+          {
+            "id": 3,
+            "username": "w07_staff",
+            "role": "staff",
+            "updated_at": "2026-10-22 09:05:07"
+          }
+        ],
+        "products": [
+          {
+            "id": 1,
+            "price": 5000,
+            "stock": 10
+          }
+        ],
+        "orders": 0
+      },
+      "database_after": {
+        "users": [
+          {
+            "id": 1,
+            "username": "w07_admin",
+            "role": "admin",
+            "updated_at": "2026-10-22 09:05:06"
+          },
+          {
+            "id": 2,
+            "username": "w07_customer",
+            "role": "staff",
+            "updated_at": "2026-10-22 09:05:11"
+          },
+          {
+            "id": 3,
+            "username": "w07_staff",
+            "role": "staff",
+            "updated_at": "2026-10-22 09:05:07"
+          }
+        ],
+        "products": [
+          {
+            "id": 1,
+            "price": 5000,
+            "stock": 10
+          }
+        ],
+        "orders": 0
+      },
+      "observer_count_before": 1,
+      "observer_count_after": 1,
+      "observer_delta": 0,
+      "observer_lines": [],
+      "result": "LOLOS PENGUJIAN"
+    },
+    {
+      "id": "AC-04",
+      "prediction_before_execution": "422; role admin tidak valid; DB/log tetap",
+      "http": {
+        "method": "PATCH",
+        "url": "http://127.0.0.1:64454/admin/users/2/role",
+        "status": 422,
+        "request": {
+          "role": "admin"
+        },
+        "response": {
+          "message": "The selected role is invalid.",
+          "errors": {
+            "role": [
+              "The selected role is invalid."
+            ]
+          }
+        },
+        "location": null
+      },
+      "database_before": {
+        "users": [
+          {
+            "id": 1,
+            "username": "w07_admin",
+            "role": "admin",
+            "updated_at": "2026-10-22 09:05:06"
+          },
+          {
+            "id": 2,
+            "username": "w07_customer",
+            "role": "staff",
+            "updated_at": "2026-10-22 09:05:11"
+          },
+          {
+            "id": 3,
+            "username": "w07_staff",
+            "role": "staff",
+            "updated_at": "2026-10-22 09:05:07"
+          }
+        ],
+        "products": [
+          {
+            "id": 1,
+            "price": 5000,
+            "stock": 10
+          }
+        ],
+        "orders": 0
+      },
+      "database_after": {
+        "users": [
+          {
+            "id": 1,
+            "username": "w07_admin",
+            "role": "admin",
+            "updated_at": "2026-10-22 09:05:06"
+          },
+          {
+            "id": 2,
+            "username": "w07_customer",
+            "role": "staff",
+            "updated_at": "2026-10-22 09:05:11"
+          },
+          {
+            "id": 3,
+            "username": "w07_staff",
+            "role": "staff",
+            "updated_at": "2026-10-22 09:05:07"
+          }
+        ],
+        "products": [
+          {
+            "id": 1,
+            "price": 5000,
+            "stock": 10
+          }
+        ],
+        "orders": 0
+      },
+      "observer_count_before": 1,
+      "observer_count_after": 1,
+      "observer_delta": 0,
+      "observer_lines": [],
+      "result": "LOLOS PENGUJIAN"
+    },
+    {
+      "id": "AC-05",
+      "prediction_before_execution": "302; role staff sama; DB/log tetap",
+      "http": {
+        "method": "PATCH",
+        "url": "http://127.0.0.1:64454/admin/users/2/role",
+        "status": 302,
+        "request": {
+          "role": "staff"
+        },
+        "response": "HTML response (body omitted to protect CSRF/session data)",
+        "location": "http://127.0.0.1:64454"
+      },
+      "database_before": {
+        "users": [
+          {
+            "id": 1,
+            "username": "w07_admin",
+            "role": "admin",
+            "updated_at": "2026-10-22 09:05:06"
+          },
+          {
+            "id": 2,
+            "username": "w07_customer",
+            "role": "staff",
+            "updated_at": "2026-10-22 09:05:11"
+          },
+          {
+            "id": 3,
+            "username": "w07_staff",
+            "role": "staff",
+            "updated_at": "2026-10-22 09:05:07"
+          }
+        ],
+        "products": [
+          {
+            "id": 1,
+            "price": 5000,
+            "stock": 10
+          }
+        ],
+        "orders": 0
+      },
+      "database_after": {
+        "users": [
+          {
+            "id": 1,
+            "username": "w07_admin",
+            "role": "admin",
+            "updated_at": "2026-10-22 09:05:06"
+          },
+          {
+            "id": 2,
+            "username": "w07_customer",
+            "role": "staff",
+            "updated_at": "2026-10-22 09:05:11"
+          },
+          {
+            "id": 3,
+            "username": "w07_staff",
+            "role": "staff",
+            "updated_at": "2026-10-22 09:05:07"
+          }
+        ],
+        "products": [
+          {
+            "id": 1,
+            "price": 5000,
+            "stock": 10
+          }
+        ],
+        "orders": 0
+      },
+      "observer_count_before": 1,
+      "observer_count_after": 1,
+      "observer_delta": 0,
+      "observer_lines": [],
+      "result": "LOLOS PENGUJIAN"
+    },
+    {
+      "id": "AC-06",
+      "prediction_before_execution": "403 staff; DB/log tetap; payload invalid membuktikan validasi cart tidak dicapai",
+      "http": {
+        "method": "POST",
+        "url": "http://127.0.0.1:64454/cart/add",
+        "status": 403,
+        "request": {
+          "cart": "invalid"
+        },
+        "response": {
+          "message": "This action is unauthorized."
+        },
+        "location": null
+      },
+      "database_before": {
+        "users": [
+          {
+            "id": 1,
+            "username": "w07_admin",
+            "role": "admin",
+            "updated_at": "2026-10-22 09:05:06"
+          },
+          {
+            "id": 2,
+            "username": "w07_customer",
+            "role": "staff",
+            "updated_at": "2026-10-22 09:05:11"
+          },
+          {
+            "id": 3,
+            "username": "w07_staff",
+            "role": "staff",
+            "updated_at": "2026-10-22 09:05:07"
+          }
+        ],
+        "products": [
+          {
+            "id": 1,
+            "price": 5000,
+            "stock": 10
+          }
+        ],
+        "orders": 0
+      },
+      "database_after": {
+        "users": [
+          {
+            "id": 1,
+            "username": "w07_admin",
+            "role": "admin",
+            "updated_at": "2026-10-22 09:05:06"
+          },
+          {
+            "id": 2,
+            "username": "w07_customer",
+            "role": "staff",
+            "updated_at": "2026-10-22 09:05:11"
+          },
+          {
+            "id": 3,
+            "username": "w07_staff",
+            "role": "staff",
+            "updated_at": "2026-10-22 09:05:07"
+          }
+        ],
+        "products": [
+          {
+            "id": 1,
+            "price": 5000,
+            "stock": 10
+          }
+        ],
+        "orders": 0
+      },
+      "observer_count_before": 1,
+      "observer_count_after": 1,
+      "observer_delta": 0,
+      "observer_lines": [],
+      "result": "LOLOS PENGUJIAN"
+    },
+    {
+      "id": "RESTORE-CUSTOMER",
+      "prediction_before_execution": "302; staff -> customer; satu log",
+      "http": {
+        "method": "PATCH",
+        "url": "http://127.0.0.1:64454/admin/users/2/role",
+        "status": 302,
+        "request": {
+          "role": "customer"
+        },
+        "response": "HTML response (body omitted to protect CSRF/session data)",
+        "location": "http://127.0.0.1:64454"
+      },
+      "database_before": {
+        "users": [
+          {
+            "id": 1,
+            "username": "w07_admin",
+            "role": "admin",
+            "updated_at": "2026-10-22 09:05:06"
+          },
+          {
+            "id": 2,
+            "username": "w07_customer",
+            "role": "staff",
+            "updated_at": "2026-10-22 09:05:11"
+          },
+          {
+            "id": 3,
+            "username": "w07_staff",
+            "role": "staff",
+            "updated_at": "2026-10-22 09:05:07"
+          }
+        ],
+        "products": [
+          {
+            "id": 1,
+            "price": 5000,
+            "stock": 10
+          }
+        ],
+        "orders": 0
+      },
+      "database_after": {
+        "users": [
+          {
+            "id": 1,
+            "username": "w07_admin",
+            "role": "admin",
+            "updated_at": "2026-10-22 09:05:06"
+          },
+          {
+            "id": 2,
+            "username": "w07_customer",
+            "role": "customer",
+            "updated_at": "2026-10-22 09:05:12"
+          },
+          {
+            "id": 3,
+            "username": "w07_staff",
+            "role": "staff",
+            "updated_at": "2026-10-22 09:05:07"
+          }
+        ],
+        "products": [
+          {
+            "id": 1,
+            "price": 5000,
+            "stock": 10
+          }
+        ],
+        "orders": 0
+      },
+      "observer_count_before": 1,
+      "observer_count_after": 2,
+      "observer_delta": 1,
+      "observer_lines": [
+        "[2026-10-22 09:05:12] local.INFO: user.role.changed {\"target_user_id\":2,\"old_role\":\"staff\",\"new_role\":\"customer\",\"actor_id\":1}"
+      ],
+      "result": "LOLOS PENGUJIAN"
+    },
+    {
+      "id": "AC-02",
+      "prediction_before_execution": "403 customer; DB/log tetap",
+      "http": {
+        "method": "PATCH",
+        "url": "http://127.0.0.1:64454/admin/users/2/role",
+        "status": 403,
+        "request": {
+          "role": "staff"
+        },
+        "response": {
+          "message": "This action is unauthorized."
+        },
+        "location": null
+      },
+      "database_before": {
+        "users": [
+          {
+            "id": 1,
+            "username": "w07_admin",
+            "role": "admin",
+            "updated_at": "2026-10-22 09:05:06"
+          },
+          {
+            "id": 2,
+            "username": "w07_customer",
+            "role": "customer",
+            "updated_at": "2026-10-22 09:05:12"
+          },
+          {
+            "id": 3,
+            "username": "w07_staff",
+            "role": "staff",
+            "updated_at": "2026-10-22 09:05:07"
+          }
+        ],
+        "products": [
+          {
+            "id": 1,
+            "price": 5000,
+            "stock": 10
+          }
+        ],
+        "orders": 0
+      },
+      "database_after": {
+        "users": [
+          {
+            "id": 1,
+            "username": "w07_admin",
+            "role": "admin",
+            "updated_at": "2026-10-22 09:05:06"
+          },
+          {
+            "id": 2,
+            "username": "w07_customer",
+            "role": "customer",
+            "updated_at": "2026-10-22 09:05:12"
+          },
+          {
+            "id": 3,
+            "username": "w07_staff",
+            "role": "staff",
+            "updated_at": "2026-10-22 09:05:07"
+          }
+        ],
+        "products": [
+          {
+            "id": 1,
+            "price": 5000,
+            "stock": 10
+          }
+        ],
+        "orders": 0
+      },
+      "observer_count_before": 2,
+      "observer_count_after": 2,
+      "observer_delta": 0,
+      "observer_lines": [],
+      "result": "LOLOS PENGUJIAN"
+    },
+    {
+      "id": "CART-STATELESS",
+      "prediction_before_execution": "200 tanpa cart lama pada payload kosong",
+      "http": {
+        "method": "POST",
+        "url": "http://127.0.0.1:64454/cart/add",
+        "status": 200,
+        "request": {
+          "cart": {},
+          "product_id": 1
+        },
+        "response": {
+          "cart": {
+            "1": 1
+          },
+          "items": [
+            {
+              "product_id": 1,
+              "product": "HTTP Buku",
+              "quantity": 1,
+              "subtotal": 5000
+            }
+          ],
+          "total": 5000
+        },
+        "location": null
+      },
+      "database_before": {
+        "users": [
+          {
+            "id": 1,
+            "username": "w07_admin",
+            "role": "admin",
+            "updated_at": "2026-10-22 09:05:06"
+          },
+          {
+            "id": 2,
+            "username": "w07_customer",
+            "role": "customer",
+            "updated_at": "2026-10-22 09:05:12"
+          },
+          {
+            "id": 3,
+            "username": "w07_staff",
+            "role": "staff",
+            "updated_at": "2026-10-22 09:05:07"
+          }
+        ],
+        "products": [
+          {
+            "id": 1,
+            "price": 5000,
+            "stock": 10
+          }
+        ],
+        "orders": 0
+      },
+      "database_after": {
+        "users": [
+          {
+            "id": 1,
+            "username": "w07_admin",
+            "role": "admin",
+            "updated_at": "2026-10-22 09:05:06"
+          },
+          {
+            "id": 2,
+            "username": "w07_customer",
+            "role": "customer",
+            "updated_at": "2026-10-22 09:05:12"
+          },
+          {
+            "id": 3,
+            "username": "w07_staff",
+            "role": "staff",
+            "updated_at": "2026-10-22 09:05:07"
+          }
+        ],
+        "products": [
+          {
+            "id": 1,
+            "price": 5000,
+            "stock": 10
+          }
+        ],
+        "orders": 0
+      },
+      "observer_count_before": 2,
+      "observer_count_after": 2,
+      "observer_delta": 0,
+      "observer_lines": [],
+      "result": "LOLOS PENGUJIAN"
+    },
+    {
+      "id": "LOGOUT-W05",
+      "prediction_before_execution": "302 login; DB/log tetap",
+      "http": {
+        "method": "POST",
+        "url": "http://127.0.0.1:64454/logout",
+        "status": 302,
+        "request": {},
+        "response": "HTML response (body omitted to protect CSRF/session data)",
+        "location": "http://127.0.0.1:64454/login"
+      },
+      "database_before": {
+        "users": [
+          {
+            "id": 1,
+            "username": "w07_admin",
+            "role": "admin",
+            "updated_at": "2026-10-22 09:05:06"
+          },
+          {
+            "id": 2,
+            "username": "w07_customer",
+            "role": "customer",
+            "updated_at": "2026-10-22 09:05:12"
+          },
+          {
+            "id": 3,
+            "username": "w07_staff",
+            "role": "staff",
+            "updated_at": "2026-10-22 09:05:07"
+          }
+        ],
+        "products": [
+          {
+            "id": 1,
+            "price": 5000,
+            "stock": 10
+          }
+        ],
+        "orders": 0
+      },
+      "database_after": {
+        "users": [
+          {
+            "id": 1,
+            "username": "w07_admin",
+            "role": "admin",
+            "updated_at": "2026-10-22 09:05:06"
+          },
+          {
+            "id": 2,
+            "username": "w07_customer",
+            "role": "customer",
+            "updated_at": "2026-10-22 09:05:12"
+          },
+          {
+            "id": 3,
+            "username": "w07_staff",
+            "role": "staff",
+            "updated_at": "2026-10-22 09:05:07"
+          }
+        ],
+        "products": [
+          {
+            "id": 1,
+            "price": 5000,
+            "stock": 10
+          }
+        ],
+        "orders": 0
+      },
+      "observer_count_before": 2,
+      "observer_count_after": 2,
+      "observer_delta": 0,
+      "observer_lines": [],
+      "result": "LOLOS PENGUJIAN"
+    },
+    {
+      "id": "DASHBOARD-AFTER-LOGOUT",
+      "prediction_before_execution": "302 login; sesi tidak terautentikasi",
+      "http": {
+        "method": "GET",
+        "url": "http://127.0.0.1:64454/dashboard",
+        "status": 302,
+        "request": null,
+        "response": "HTML response (body omitted to protect CSRF/session data)",
+        "location": "http://127.0.0.1:64454/login"
+      },
+      "database_before": {
+        "users": [
+          {
+            "id": 1,
+            "username": "w07_admin",
+            "role": "admin",
+            "updated_at": "2026-10-22 09:05:06"
+          },
+          {
+            "id": 2,
+            "username": "w07_customer",
+            "role": "customer",
+            "updated_at": "2026-10-22 09:05:12"
+          },
+          {
+            "id": 3,
+            "username": "w07_staff",
+            "role": "staff",
+            "updated_at": "2026-10-22 09:05:07"
+          }
+        ],
+        "products": [
+          {
+            "id": 1,
+            "price": 5000,
+            "stock": 10
+          }
+        ],
+        "orders": 0
+      },
+      "database_after": {
+        "users": [
+          {
+            "id": 1,
+            "username": "w07_admin",
+            "role": "admin",
+            "updated_at": "2026-10-22 09:05:06"
+          },
+          {
+            "id": 2,
+            "username": "w07_customer",
+            "role": "customer",
+            "updated_at": "2026-10-22 09:05:12"
+          },
+          {
+            "id": 3,
+            "username": "w07_staff",
+            "role": "staff",
+            "updated_at": "2026-10-22 09:05:07"
+          }
+        ],
+        "products": [
+          {
+            "id": 1,
+            "price": 5000,
+            "stock": 10
+          }
+        ],
+        "orders": 0
+      },
+      "observer_count_before": 2,
+      "observer_count_after": 2,
+      "observer_delta": 0,
+      "observer_lines": [],
+      "result": "LOLOS PENGUJIAN"
+    }
+  ],
+  "observer_experiment": [
+    {
+      "operation": "instance-save",
+      "prediction_before_execution": "DB berubah, 1 log Observer",
+      "database_before": {
+        "users": [
+          {
+            "id": 1,
+            "username": "w07_admin",
+            "role": "admin",
+            "updated_at": "2026-10-22 09:05:06"
+          },
+          {
+            "id": 2,
+            "username": "w07_customer",
+            "role": "customer",
+            "updated_at": "2026-10-22 09:05:12"
+          },
+          {
+            "id": 3,
+            "username": "w07_staff",
+            "role": "staff",
+            "updated_at": "2026-10-22 09:05:07"
+          }
+        ],
+        "products": [
+          {
+            "id": 1,
+            "price": 5000,
+            "stock": 10
+          }
+        ],
+        "orders": 0
+      },
+      "database_after": {
+        "users": [
+          {
+            "id": 1,
+            "username": "w07_admin",
+            "role": "admin",
+            "updated_at": "2026-10-22 09:05:06"
+          },
+          {
+            "id": 2,
+            "username": "w07_customer",
+            "role": "staff",
+            "updated_at": "2026-10-22 09:05:13"
+          },
+          {
+            "id": 3,
+            "username": "w07_staff",
+            "role": "staff",
+            "updated_at": "2026-10-22 09:05:07"
+          }
+        ],
+        "products": [
+          {
+            "id": 1,
+            "price": 5000,
+            "stock": 10
+          }
+        ],
+        "orders": 0
+      },
+      "observer_delta": 1,
+      "observer_lines": [
+        "[2026-10-22 09:05:13] local.INFO: user.role.changed {\"target_user_id\":2,\"old_role\":\"customer\",\"new_role\":\"staff\",\"actor_id\":null} "
+      ]
+    },
+    {
+      "operation": "bulk-update",
+      "prediction_before_execution": "DB berubah, 0 log Observer",
+      "database_before": {
+        "users": [
+          {
+            "id": 1,
+            "username": "w07_admin",
+            "role": "admin",
+            "updated_at": "2026-10-22 09:05:06"
+          },
+          {
+            "id": 2,
+            "username": "w07_customer",
+            "role": "staff",
+            "updated_at": "2026-10-22 09:05:13"
+          },
+          {
+            "id": 3,
+            "username": "w07_staff",
+            "role": "staff",
+            "updated_at": "2026-10-22 09:05:07"
+          }
+        ],
+        "products": [
+          {
+            "id": 1,
+            "price": 5000,
+            "stock": 10
+          }
+        ],
+        "orders": 0
+      },
+      "database_after": {
+        "users": [
+          {
+            "id": 1,
+            "username": "w07_admin",
+            "role": "admin",
+            "updated_at": "2026-10-22 09:05:06"
+          },
+          {
+            "id": 2,
+            "username": "w07_customer",
+            "role": "customer",
+            "updated_at": "2026-10-22 09:05:14"
+          },
+          {
+            "id": 3,
+            "username": "w07_staff",
+            "role": "customer",
+            "updated_at": "2026-10-22 09:05:14"
+          }
+        ],
+        "products": [
+          {
+            "id": 1,
+            "price": 5000,
+            "stock": 10
+          }
+        ],
+        "orders": 0
+      },
+      "observer_delta": 0,
+      "observer_lines": []
+    }
+  ],
+  "role_restored": "customer",
+  "final_dummy_database": {
+    "users": [
+      {
+        "id": 1,
+        "username": "w07_admin",
+        "role": "admin",
+        "updated_at": "2026-10-22 09:05:06"
+      },
+      {
+        "id": 2,
+        "username": "w07_customer",
+        "role": "customer",
+        "updated_at": "2026-10-22 09:05:14"
+      },
+      {
+        "id": 3,
+        "username": "w07_staff",
+        "role": "staff",
+        "updated_at": "2026-10-22 09:05:15"
+      }
+    ],
+    "products": [
+      {
+        "id": 1,
+        "price": 5000,
+        "stock": 10
+      }
+    ],
+    "orders": 0
+  },
+  "server_observer_event_count": 2,
+  "session_cart_stored": false
+}

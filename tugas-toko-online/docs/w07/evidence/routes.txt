@@ -1,0 +1,56 @@
+
+  GET|HEAD   / .............................................................. products.index › ShopController@products
+             ⇂ web
+  PATCH      admin/products/{product} ............................... admin.products.update › ProductController@update
+             ⇂ web
+             ⇂ auth
+             ⇂ can:manage-products
+  GET|HEAD   admin/products/{product}/edit .............................. admin.products.edit › ProductController@edit
+             ⇂ web
+             ⇂ auth
+             ⇂ can:manage-products
+  GET|HEAD   admin/users .................................................... admin.users.index › RoleController@index
+             ⇂ web
+             ⇂ auth
+             ⇂ can:manage-roles
+  PATCH      admin/users/{user}/role ................................. admin.users.role.update › RoleController@update
+             ⇂ web
+             ⇂ auth
+             ⇂ can:manage-roles
+  GET|HEAD   cart ................................................................... cart.index › ShopController@cart
+             ⇂ web
+             ⇂ auth
+             ⇂ can:use-cart
+  POST       cart ................................................................ cart.show › ShopController@showCart
+             ⇂ web
+             ⇂ auth
+             ⇂ can:use-cart
+  POST       cart/add ............................................................ cart.add › ShopController@addToCart
+             ⇂ web
+             ⇂ auth
+             ⇂ can:use-cart
+  POST       checkout ............................................................. checkout › ShopController@checkout
+             ⇂ web
+             ⇂ auth
+             ⇂ can:use-cart
+  GET|HEAD   dashboard ................................................................. dashboard › routes/web.php:10
+             ⇂ web
+             ⇂ auth
+  GET|HEAD   login .................................................................. login › AuthController@showLogin
+             ⇂ web
+             ⇂ guest
+  POST       login .............................................................................. AuthController@login
+             ⇂ web
+             ⇂ guest
+  POST       logout ................................................................... logout › AuthController@logout
+             ⇂ web
+             ⇂ auth
+  GET|HEAD   orders ............................................................. orders.index › ShopController@orders
+             ⇂ web
+             ⇂ auth
+  GET|HEAD   stock ............................................................. stock.index › ProductController@stock
+             ⇂ web
+             ⇂ auth
+             ⇂ can:adjust-stock
+
+                                                                                                   Showing [15] routes

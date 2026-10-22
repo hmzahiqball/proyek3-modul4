@@ -114,3 +114,16 @@ php artisan test
 Jangan menjalankan dua aplikasi Laravel pada port yang sama secara bersamaan.
 Gunakan port berbeda jika ingin menjalankan lebih dari satu tugas, misalnya
 `--port=8001`.
+
+
+## W07 Modul 5 — Role Management
+
+Kelanjutan W05–W06 berada pada aplikasi `tugas-toko-online`, branch
+`week7-modul5-role-management`. Implementasi meliputi default customer, Gate,
+perubahan role melalui service, Observer dan pembatasan cart stateless.
+Lihat [checklist, bukti HTTP/database/log, eksperimen dan refleksi W07](./tugas-toko-online/docs/w07/README.md).
+
+Dari root aplikasi, jalankan `php artisan migrate`, `php artisan test`, lalu
+`php artisan serve`. Seeder demo lokal bersifat opt-in melalui
+`php artisan db:seed --class=RoleDemoSeeder` dengan `ROLE_DEMO_PASSWORD` lokal.
+Password demo tidak disimpan di repository.
