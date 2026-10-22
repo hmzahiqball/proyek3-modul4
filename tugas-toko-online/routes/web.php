@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\ShopController;
+use App\Http\Controllers\RoleController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', [ShopController::class, 'products'])->name('products.index');
@@ -18,3 +19,8 @@ Route::middleware('auth')->group(function (): void {
     Route::get('/orders', [ShopController::class, 'orders'])->name('orders.index');
     Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
 });
+
+Route::get('/admin/users', [RoleController::class, 'index'])
+    ->middleware(['auth', 'can:manage-roles'])->name('admin.users.index');
+Route::patch('/admin/users/{user}/role', [RoleController::class, 'update'])
+    ->middleware(['auth', 'can:manage-roles'])->name('admin.users.role.update');
