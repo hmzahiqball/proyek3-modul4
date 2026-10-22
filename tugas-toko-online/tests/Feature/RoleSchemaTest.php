@@ -15,6 +15,7 @@ class RoleSchemaTest extends TestCase
     public function test_database_defaults_new_and_legacy_style_users_to_customer(): void
     {
         $user = User::factory()->create();
+        $this->assertSame('customer', $user->role);
         $this->assertSame('customer', $user->fresh()->role);
         $this->assertTrue(Schema::hasIndex('users', ['role']));
         $this->assertNotContains('role', $user->getFillable());

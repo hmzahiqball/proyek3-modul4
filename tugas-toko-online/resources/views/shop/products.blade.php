@@ -24,20 +24,24 @@
         <h1>Toko Online</h1>
         <nav>
             @auth
+                @can('use-cart')
                 <button id="view-cart" type="button">Keranjang (<span id="cart-count">0</span>)</button>
                 <a href="{{ route('orders.index') }}">Riwayat pesanan</a>
+                @endcan
+                @can('adjust-stock')<a href="{{ route('stock.index') }}">Stok</a>@endcan
+                @can('manage-roles')<a href="{{ route('admin.users.index') }}">Kelola role</a>@endcan
                 <form method="POST" action="{{ route('logout') }}">@csrf<button>Logout</button></form>
             @else
                 <a href="{{ route('login') }}">Login</a>
             @endauth
         </nav>
     </div>
-    @auth
+    @can('use-cart')
         <section id="cart-summary" aria-live="polite">
             <strong>Keranjang sementara:</strong> state hanya berada di memori halaman ini.
             <span id="cart-message">Belum ada item.</span>
         </section>
-    @endauth
+    @endcan
     <h2>Daftar Barang</h2>
     <div class="grid">
         @foreach($products as $product)
@@ -46,19 +50,20 @@
                 <h3>{{ $product->name }}</h3>
                 <p>{{ $product->description }}</p>
                 <strong>Rp {{ number_format($product->price, 0, ',', '.') }}</strong>
-                <p class="muted">Stok: {{ $product->stock }}</p>
-                @auth
-                    <button type="button" class="add-to-cart" data-product-id="{{ $product->id }}" data-stock="{{ $product->stock }}" {{ $product->stock < 1 ? 'disabled' : '' }}>
+                @can('adjust-stock')<p class="muted">Stok: {{ $product->stock }}</p>@endcan
+                @can('manage-products')<a href="{{ route('admin.products.edit', $product) }}">Edit produk</a>@endcan
+                @can('use-cart')
+                    <button type="button" class="add-to-cart" data-product-id="{{ $product->id }}" {{ $product->stock < 1 ? 'disabled' : '' }}>
                         Tambah ke keranjang
                     </button>
                 @else
-                    <a href="{{ route('login') }}">Login untuk membeli</a>
-                @endauth
+                    @guest<a href="{{ route('login') }}">Login untuk membeli</a>@endguest
+                @endcan
             </article>
         @endforeach
     </div>
 </main>
-@auth
+@can('use-cart')
 <script>
     window.cartState = {};
     window.csrfToken = document.querySelector('meta[name="csrf-token"]')?.content || @json(csrf_token());
@@ -108,6 +113,6 @@
         document.close();
     });
 </script>
-@endauth
+@endcan
 </body>
 </html>
